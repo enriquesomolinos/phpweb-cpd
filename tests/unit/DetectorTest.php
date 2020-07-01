@@ -7,18 +7,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace SebastianBergmann\PHPCPD\Detector;
+namespace PHPWEBCPD\Detector;
 
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy;
+use PHPWEBCPD\Detector\Strategy\DefaultStrategy;
 
 /**
- * @covers \SebastianBergmann\PHPCPD\Detector\Detector
- * @covers \SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy
+ * @covers \PHPWEBCPD\Detector\Detector
+ * @covers \PHPWEBCPD\Detector\Strategy\DefaultStrategy
  *
- * @uses \SebastianBergmann\PHPCPD\CodeClone
- * @uses \SebastianBergmann\PHPCPD\CodeCloneFile
- * @uses \SebastianBergmann\PHPCPD\CodeCloneMap
+ * @uses \PHPWEBCPD\CodeClone
+ * @uses \PHPWEBCPD\CodeCloneFile
+ * @uses \PHPWEBCPD\CodeCloneMap
  */
 class DetectorTest extends TestCase
 {

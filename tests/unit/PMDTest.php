@@ -7,21 +7,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace SebastianBergmann\PHPCPD\Log;
+namespace PHPWEBCPD\Log;
 
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\PHPCPD\CodeClone;
-use SebastianBergmann\PHPCPD\CodeCloneFile;
-use SebastianBergmann\PHPCPD\CodeCloneMap;
+use PHPWEBCPD\CodeClone;
+use PHPWEBCPD\CodeCloneFile;
+use PHPWEBCPD\CodeCloneMap;
 
 /**
- * @covers \SebastianBergmann\PHPCPD\Log\PMD
- * @covers \SebastianBergmann\PHPCPD\Log\AbstractXmlLogger
+ * @covers \PHPWEBCPD\Log\PMD
+ * @covers \PHPWEBCPD\Log\AbstractXmlLogger
  *
- * @uses \SebastianBergmann\PHPCPD\CodeClone
- * @uses \SebastianBergmann\PHPCPD\CodeCloneFile
- * @uses \SebastianBergmann\PHPCPD\CodeCloneMap
- * @uses \SebastianBergmann\PHPCPD\CodeCloneMapIterator
+ * @uses \PHPWEBCPD\CodeClone
+ * @uses \PHPWEBCPD\CodeCloneFile
+ * @uses \PHPWEBCPD\CodeCloneMap
+ * @uses \PHPWEBCPD\CodeCloneMapIterator
  */
 class PMDTest extends TestCase
 {
@@ -37,7 +37,7 @@ class PMDTest extends TestCase
     /** @var string */
     private $expectedPmdLogFile;
 
-    /** @var \SebastianBergmann\PHPCPD\Log\PMD */
+    /** @var \PHPWEBCPD\Log\PMD */
     private $pmdLogger;
 
     protected function setUp(): void

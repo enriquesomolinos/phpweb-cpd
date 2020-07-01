@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-print 'sebastian/phpcpd: ';
+print 'phpwebcpd: ';
 
 $tag = @exec('git describe --tags 2>&1');
 

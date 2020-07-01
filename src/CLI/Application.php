@@ -1,13 +1,14 @@
 <?php declare(strict_types=1);
 /*
- * This file is part of PHP Copy/Paste Detector (PHPCPD).
+ * This file is part of PHPWEB Copy/Paste Detector (PHPWEBCPD).
  *
- * (c) Sebastian Bergmann <sebastian@phpunit.de>
+ * (c) Enrique Somolinos <enrique.somolinos@gmail.com>
+ *     Sebastian Bergmann <sebastian@phpunit.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace SebastianBergmann\PHPCPD\CLI;
+namespace PHPWEBCPD\CLI;
 
 use SebastianBergmann\Version;
 use Symfony\Component\Console\Application as AbstractApplication;
@@ -21,7 +22,7 @@ final class Application extends AbstractApplication
     {
         $version = new Version('5.0.2', \dirname(__DIR__, 2));
 
-        parent::__construct('phpcpd', $version->getVersion());
+        parent::__construct('phpwebcpd', $version->getVersion());
     }
 
     /**
@@ -46,7 +47,7 @@ final class Application extends AbstractApplication
         if (!$input->hasParameterOption('--quiet')) {
             $output->write(
                 \sprintf(
-                    "phpcpd %s by Sebastian Bergmann.\n\n",
+                    "phpwebcpd %s.\n\n",
                     $this->getVersion()
                 )
             );
@@ -69,7 +70,7 @@ final class Application extends AbstractApplication
      */
     protected function getCommandName(InputInterface $input): string
     {
-        return 'phpcpd';
+        return 'phpwebcpd';
     }
 
     /**

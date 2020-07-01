@@ -1,28 +1,20 @@
-# PHP Copy/Paste Detector (PHPCPD)
+# PHPWEB Copy/Paste Detector (PHPWEBCPD)
 
-`phpcpd` is a Copy/Paste Detector (CPD) for PHP code.
+`phpwebcpd` is a Copy/Paste Detector (CPD) for PHPWEB code. This includes PHP and Twig files
+
+This project is based on Sebastian Bergmann PHPCPD project (https://github.com/sebastianbergmann/phpcpd)
 
 ## Installation
 
-This tool is distributed as a [PHP Archive (PHAR)](https://php.net/phar):
-
-```bash
-$ wget https://phar.phpunit.de/phpcpd.phar
-
-$ php phpcpd.phar --version
-```
-
-Using [Phive](https://phar.io/) is the recommended way for managing the tool dependencies of your project.
-
-**[It is not recommended to use Composer to download and install this tool.](https://twitter.com/s_bergmann/status/999635212723212288)**
+Download via Composer
 
 ## Usage Example
 
 ```
-$ php phpcpd.phar --fuzzy wordpress-4.9.8
-phpcpd 5.0.0 by Sebastian Bergmann.
+$ php phpwebcpd.phar --fuzzy wordpress-4.9.8
+phpwebcpd 1.0.0
 
-Found 66 clones with 3014 duplicated lines in 40 files:
+Found 66 clones with 3014 duplicated lines in 40 files *.php:
 
   - /home/sb/wordpress-4.9.8/wp-includes/Requests/IRI.php:358-708 (350 lines)
     /home/sb/wordpress-4.9.8/wp-includes/SimplePie/IRI.php:404-754
@@ -32,8 +24,22 @@ Found 66 clones with 3014 duplicated lines in 40 files:
   - /home/sb/wordpress-4.9.8/wp-includes/SimplePie/File.php:133-144 (11 lines)
     /home/sb/wordpress-4.9.8/wp-includes/SimplePie/File.php:215-226
 
-0.86% duplicated lines out of 349460 total lines of code.
+0.86% duplicated lines out of 349460 total lines of code *.php.
 Average size of duplication is 45 lines, largest clone has 350 of lines
+
+Found 2 clones with 41 duplicated lines in 2 files *.twig:
+
+  - C:\dev\dr\phpweb-cpd\tests\standard_layout.twig:5-32 (27 lines)
+    C:\dev\dr\phpweb-cpd\tests\standard_layout2.twig:19-46
+.
+.
+.
+  - C:\dev\dr\phpweb-cpd\tests\standard_layout.twig:37-51 (14 lines)
+    C:\dev\dr\phpweb-cpd\tests\standard_layout2.twig:75-89
+
+29.50% duplicated lines out of 139 total lines of code *.twig.
+Average size of duplication is 20 lines, largest clone has 27 of lines
+
 
 Time: 1.79 seconds, Memory: 272.00MB
 ```

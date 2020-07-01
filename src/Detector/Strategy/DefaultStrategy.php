@@ -1,17 +1,18 @@
 <?php declare(strict_types=1);
 /*
- * This file is part of PHP Copy/Paste Detector (PHPCPD).
+ * This file is part of PHPWEB Copy/Paste Detector (PHPWEBCPD).
  *
- * (c) Sebastian Bergmann <sebastian@phpunit.de>
+ * (c) Enrique Somolinos <enrique.somolinos@gmail.com>
+ *     Sebastian Bergmann <sebastian@phpunit.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace SebastianBergmann\PHPCPD\Detector\Strategy;
+namespace PHPWEBCPD\Detector\Strategy;
 
-use SebastianBergmann\PHPCPD\CodeClone;
-use SebastianBergmann\PHPCPD\CodeCloneFile;
-use SebastianBergmann\PHPCPD\CodeCloneMap;
+use PHPWEBCPD\CodeClone;
+use PHPWEBCPD\CodeCloneFile;
+use PHPWEBCPD\CodeCloneMap;
 
 class DefaultStrategy extends AbstractStrategy
 {
@@ -21,7 +22,7 @@ class DefaultStrategy extends AbstractStrategy
         $currentTokenPositions     = [];
         $currentTokenRealPositions = [];
         $currentSignature          = '';
-        $tokens                    = \token_get_all($buffer);
+        $tokens                    = $this->getTokens($buffer);
         $tokenNr                   = 0;
         $lastTokenLine             = 0;
 
@@ -45,7 +46,7 @@ class DefaultStrategy extends AbstractStrategy
 
                     $currentTokenRealPositions[$tokenNr++] = $token[2];
 
-                    if ($fuzzy && $token[0] === \T_VARIABLE) {
+                    if ($fuzzy && $this->isVariableToken($token)) {
                         $token[1] = 'variable';
                     }
 
@@ -143,5 +144,15 @@ class DefaultStrategy extends AbstractStrategy
                 );
             }
         }
+    }
+
+    protected function getTokens(string $buffer) : array
+    {
+        return \token_get_all($buffer);
+    }
+
+    protected function isVariableToken(array $token): bool
+    {
+        return $token[0] === \T_VARIABLE;
     }
 }

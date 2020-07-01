@@ -7,16 +7,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace SebastianBergmann\PHPCPD\Detector;
+namespace PHPWEBCPD\Detector;
 
-use SebastianBergmann\PHPCPD\CodeCloneMap;
-use SebastianBergmann\PHPCPD\Detector\Strategy\AbstractStrategy;
+use PHPWEBCPD\CodeCloneMap;
+use PHPWEBCPD\Detector\Strategy\AbstractStrategy;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 final class Detector
 {
     /**
-     * @var \SebastianBergmann\PHPCPD\Detector\Strategy\AbstractStrategy
+     * @var \PHPWEBCPD\Detector\Strategy\AbstractStrategy
      */
     private $strategy;
 

@@ -1,19 +1,21 @@
 <?php declare(strict_types=1);
 /*
- * This file is part of PHP Copy/Paste Detector (PHPCPD).
+ * This file is part of PHPWEB Copy/Paste Detector (PHPWEBCPD).
  *
- * (c) Sebastian Bergmann <sebastian@phpunit.de>
+ * (c) Enrique Somolinos <enrique.somolinos@gmail.com>
+ *     Sebastian Bergmann <sebastian@phpunit.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace SebastianBergmann\PHPCPD\CLI;
+namespace PHPWEBCPD\CLI;
 
+use EnriqueSomolinos\PHPWEBCPD\StrategyFactory;
 use SebastianBergmann\FinderFacade\FinderFacade;
-use SebastianBergmann\PHPCPD\Detector\Detector;
-use SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy;
-use SebastianBergmann\PHPCPD\Log\PMD;
-use SebastianBergmann\PHPCPD\Log\Text;
+use PHPWEBCPD\Detector\Detector;
+use PHPWEBCPD\Detector\Strategy\DefaultStrategy;
+use PHPWEBCPD\Log\PMD;
+use PHPWEBCPD\Log\Text;
 use SebastianBergmann\Timer\Timer;
 use Symfony\Component\Console\Command\Command as AbstractCommand;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -29,7 +31,7 @@ final class Command extends AbstractCommand
      */
     protected function configure(): void
     {
-        $this->setName('phpcpd')
+        $this->setName('phpwebcpd')
              ->setDefinition(
                  [
                      new InputArgument(
@@ -44,7 +46,7 @@ final class Command extends AbstractCommand
                  null,
                  InputOption::VALUE_REQUIRED,
                  'A comma-separated list of file names to check',
-                 ['*.php']
+                 ['*.php', '*.twig']
              )
              ->addOption(
                  'names-exclude',
@@ -105,15 +107,18 @@ final class Command extends AbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $finder = new FinderFacade(
-            $input->getArgument('values'),
-            $input->getOption('exclude'),
-            $this->handleCSVOption($input, 'names'),
-            $this->handleCSVOption($input, 'names-exclude'),
-            $this->handleCSVOption($input, 'regexps-exclude')
-        );
-
-        $files = $finder->findFiles();
+        $names = $this->handleCSVOption($input, 'names');
+        $files = [];
+        foreach ($names as $name) {
+            $finder = new FinderFacade(
+                $input->getArgument('values'),
+                $input->getOption('exclude'),
+                array($name),
+                $this->handleCSVOption($input, 'names-exclude'),
+                $this->handleCSVOption($input, 'regexps-exclude')
+            );
+            $files[$name] = $finder->findFiles();
+        }
 
         if (empty($files)) {
             $output->writeln('No files found to scan');
@@ -128,16 +133,20 @@ final class Command extends AbstractCommand
             $progressBar->start();
         }
 
-        $strategy = new DefaultStrategy;
-        $detector = new Detector($strategy, $progressBar);
-        $quiet    = $output->getVerbosity() == OutputInterface::VERBOSITY_QUIET;
+        $clones = [];
+        foreach ($files as $extension => $file) {
+            $strategy = StrategyFactory::getStrategy($extension);
+            $detector = new Detector($strategy, $progressBar);
+            $quiet    = $output->getVerbosity() == OutputInterface::VERBOSITY_QUIET;
 
-        $clones = $detector->copyPasteDetection(
-            $files,
-            (int) $input->getOption('min-lines'),
-            (int) $input->getOption('min-tokens'),
-            (bool) $input->getOption('fuzzy')
-        );
+            $clones[$extension] = $detector->copyPasteDetection(
+                $files[$extension],
+                (int) $input->getOption('min-lines'),
+                (int) $input->getOption('min-tokens'),
+                (bool) $input->getOption('fuzzy')
+            );
+
+        }
 
         if ($input->getOption('progress')) {
             $progressBar->finish();
@@ -146,7 +155,9 @@ final class Command extends AbstractCommand
 
         if (!$quiet) {
             $printer = new Text;
-            $printer->printResult($output, $clones);
+            foreach ($clones as $extension => $clone) {
+                $printer->printResult($output, $clone, $extension);
+            }
             unset($printer);
         }
 
@@ -154,7 +165,9 @@ final class Command extends AbstractCommand
 
         if ($logPmd) {
             $pmd = new PMD($logPmd);
-            $pmd->processClones($clones);
+            foreach ($clones as $clone) {
+                $pmd->processClones($clone);
+            }
             unset($pmd);
         }
 

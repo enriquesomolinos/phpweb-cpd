@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="phpcpd" default="setup">
+<project name="phpweb-cpd" default="setup">
     <target name="setup" depends="clean,install-dependencies"/>
 
     <target name="clean" description="Cleanup build artifacts">
@@ -7,8 +7,8 @@
         <delete file="${basedir}/composer.lock"/>
         <delete>
             <fileset dir="${basedir}/build">
-                <include name="**/phpcpd*.phar"/>
-                <include name="**/phpcpd*.phar.asc"/>
+                <include name="**/phpweb-cpd*.phar"/>
+                <include name="**/phpweb-cpd*.phar.asc"/>
             </fileset>
         </delete>
     </target>
@@ -34,26 +34,26 @@
         </exec>
     </target>
 
-    <target name="signed-phar" description="Create signed PHAR archive of PHPCPD and all its dependencies (release)" depends="phar">
+    <target name="signed-phar" description="Create signed PHAR archive of PHPWEB-CPD and all its dependencies (release)" depends="phar">
         <exec executable="bash" outputproperty="version">
             <arg value="-c" />
-            <arg value="${basedir}/phpcpd --version | awk 'BEGIN { ORS = &quot;&quot;; } {print $2}'" />
+            <arg value="${basedir}/phpweb-cpd --version | awk 'BEGIN { ORS = &quot;&quot;; } {print $2}'" />
         </exec>
 
         <exec executable="gpg" failonerror="true">
             <arg value="--armor" />
             <arg value="--detach-sign" />
-            <arg path="${basedir}/build/phpcpd-${version}.phar" />
+            <arg path="${basedir}/build/phpweb-cpd-${version}.phar" />
         </exec>
     </target>
 
-    <target name="phar" description="Create PHAR archive of phpcpd and all its dependencies" depends="setup,phar-build">
+    <target name="phar" description="Create PHAR archive of phpweb-cpd and all its dependencies" depends="setup,phar-build">
     </target>
 
     <target name="phar-build">
         <exec executable="bash" outputproperty="version">
             <arg value="-c" />
-            <arg value="${basedir}/phpcpd --version | awk 'BEGIN { ORS = &quot;&quot;; } {print $2}'" />
+            <arg value="${basedir}/phpweb-cpd --version | awk 'BEGIN { ORS = &quot;&quot;; } {print $2}'" />
         </exec>
 
         <copy todir="${basedir}/build/phar/src">
@@ -99,7 +99,7 @@
             <arg value="--all" />
             <arg value="--phar" />
             <arg value="--output" />
-            <arg path="${basedir}/build/phpcpd-${version}.phar" />
+            <arg path="${basedir}/build/phpweb-cpd-${version}.phar" />
             <arg value="--template" />
             <arg path="${basedir}/build/phar-autoload.php.in" />
             <arg value="--indent" />
@@ -107,7 +107,7 @@
             <arg path="${basedir}/build/phar" />
         </exec>
 
-        <chmod file="${basedir}/build/phpcpd-${version}.phar" perm="ugo+rx"/>
+        <chmod file="${basedir}/build/phpweb-cpd-${version}.phar" perm="ugo+rx"/>
 
         <delete dir="${basedir}/build/phar"/>
     </target>

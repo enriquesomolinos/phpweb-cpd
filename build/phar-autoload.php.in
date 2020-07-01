@@ -4,7 +4,7 @@ if (version_compare('7.3.0', PHP_VERSION, '>')) {
     fwrite(
         STDERR,
         sprintf(
-            'This version of PHPCPD requires PHP 7.3 (or later).' . PHP_EOL .
+            'This version of PHPWEBCPD requires PHP 7.3 (or later).' . PHP_EOL .
             'You are using PHP %s%s.' . PHP_EOL,
             PHP_VERSION,
             defined('PHP_BINARY') ? ' (' . PHP_BINARY . ')' : ''
@@ -21,8 +21,8 @@ if ($_SERVER['SCRIPT_NAME'] != '-') {
     $phar = $files[0];
 }
 
-define('__PHPCPD_PHAR__', str_replace(DIRECTORY_SEPARATOR, '/', $phar));
-define('__PHPCPD_PHAR_ROOT__', 'phar://___PHAR___');
+define('__PHPWEBCPD_PHAR__', str_replace(DIRECTORY_SEPARATOR, '/', $phar));
+define('__PHPWEBCPD_PHAR_ROOT__', 'phar://___PHAR___');
 
 spl_autoload_register(
   function ($class)
@@ -46,11 +46,11 @@ spl_autoload_register(
 Phar::mapPhar('___PHAR___');
 
 if (isset($_SERVER['argv'][1]) && $_SERVER['argv'][1] == '--manifest') {
-    print file_get_contents(__PHPCPD_PHAR_ROOT__ . '/manifest.txt');
+    print file_get_contents(__PHPWEBCPD_PHAR_ROOT__ . '/manifest.txt');
     exit;
 }
 
-$application = new SebastianBergmann\PHPCPD\CLI\Application;
+$application = new PHPWEBCPD\CLI\Application;
 $application->run();
 
 __HALT_COMPILER();

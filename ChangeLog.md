@@ -1,3 +1,9 @@
+# Changes in PHPWEB-CPD
+
+Add Twig strategy to detect duplicates on twig files.
+
+## [1.0.0] - 2020-07-01
+
 # Changes in PHPCPD
 
 All notable changes in PHPCPD are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
