@@ -10,7 +10,9 @@
 namespace EnriqueSomolinos\PHPWEBCPD;
 
 use PHPWEBCPD\Detector\Strategy\AbstractStrategy;
+use PHPWEBCPD\Detector\Strategy\CssStrategy;
 use PHPWEBCPD\Detector\Strategy\DefaultStrategy;
+use PHPWEBCPD\Detector\Strategy\JavascriptStrategy;
 use PHPWEBCPD\Detector\Strategy\TwigStrategy;
 
 class StrategyFactory
@@ -19,6 +21,15 @@ class StrategyFactory
     {
         if($extension == "*.twig") {
             return new TwigStrategy();
+        }
+        if($extension == "*.js") {
+            return new JavascriptStrategy();
+        }
+        if($extension == "*.css") {
+            return new CssStrategy();
+        }
+        if($extension == "*.scss") {
+            return new CssStrategy();
         }
         return new DefaultStrategy();
     }

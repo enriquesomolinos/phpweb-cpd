@@ -59,7 +59,9 @@ final class Text
         }
 
         if ($clones->isEmpty()) {
-            $output->write("No clones found.\n\n");
+            $output->write(
+                \sprintf("No clones found on %s files.\n\n",
+                    $extension));
 
             return;
         }

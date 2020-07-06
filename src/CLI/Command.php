@@ -46,7 +46,7 @@ final class Command extends AbstractCommand
                  null,
                  InputOption::VALUE_REQUIRED,
                  'A comma-separated list of file names to check',
-                 ['*.php', '*.twig']
+                 ['*.php', '*.twig', '*.js', '*.css', '*.scss']
              )
              ->addOption(
                  'names-exclude',

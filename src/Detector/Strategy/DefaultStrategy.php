@@ -50,8 +50,11 @@ class DefaultStrategy extends AbstractStrategy
                         $token[1] = 'variable';
                     }
 
+                    if(!is_integer($token[0])) {
+                        $token[0] = 0;
+                    }
                     $currentSignature .= \chr($token[0] & 255) .
-                                         \pack('N*', \crc32($token[1]));
+                        \pack('N*', \crc32($token[1]));
                 }
 
                 $lastTokenLine = $token[2];
