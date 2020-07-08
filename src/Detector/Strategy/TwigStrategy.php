@@ -26,7 +26,7 @@ class TwigStrategy extends DefaultStrategy
             $currentTwigToken = $twigTokens->next();
             $token[0] = $currentTwigToken->getType();
             $token[2] = $currentTwigToken->getLine();
-            $token[1] = trim($currentTwigToken->getValue());
+            $token[1] = trim(strval($currentTwigToken->getValue()));
             if ($currentTwigToken->getType() == 0) {
                 $values = explode("\n", $currentTwigToken->getValue());
                 $values2 = [];

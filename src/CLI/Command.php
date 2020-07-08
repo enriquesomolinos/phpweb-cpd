@@ -129,7 +129,11 @@ final class Command extends AbstractCommand
         $progressBar = null;
 
         if ($input->getOption('progress')) {
-            $progressBar = new ProgressBar($output, \count($files));
+            $totalFiles = 0;
+            foreach ($files as $file) {
+                $totalFiles += sizeof($file);
+            }
+            $progressBar = new ProgressBar($output, $totalFiles);
             $progressBar->start();
         }
 
