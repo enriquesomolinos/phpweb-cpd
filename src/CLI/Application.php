@@ -20,7 +20,7 @@ final class Application extends AbstractApplication
 {
     public function __construct()
     {
-        $version = new Version('5.0.2', \dirname(__DIR__, 2));
+        $version = new Version('1.1.2', \dirname(__DIR__, 2));
 
         parent::__construct('phpwebcpd', $version->getVersion());
     }
@@ -47,7 +47,7 @@ final class Application extends AbstractApplication
         if (!$input->hasParameterOption('--quiet')) {
             $output->write(
                 \sprintf(
-                    "phpwebcpd %s.\n\n",
+                    "phpwebcpd %s\n\n",
                     $this->getVersion()
                 )
             );
