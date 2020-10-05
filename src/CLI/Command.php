@@ -179,8 +179,10 @@ final class Command extends AbstractCommand
             print Timer::resourceUsage() . "\n";
         }
 
-        if (\count($clones) > 0) {
-            return 1;
+        foreach ($clones as $extensionClones) {
+            if (\count($extensionClones->getClones()) > 0) {
+                return 1;
+            }
         }
 
         return 0;
